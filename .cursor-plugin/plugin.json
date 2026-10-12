@@ -2,7 +2,7 @@
 	"name": "odd-stack",
 	"displayName": "odd-stack",
 	"version": "0.15.15-odd.1",
-	"description": "if you want to go fast, go deep first. pstack helps you write less, but higher quality code. rigorous agent workflows you can parallelize with confidence.",
+	"description": "if you want to go fast, go deep first. odd-stack helps you write less, but higher quality code. rigorous agent workflows you can parallelize with confidence.",
 	"author": {
 		"name": "Lauren Tan"
 	},
@@ -11,8 +11,8 @@
 	"license": "MIT",
 	"logo": "assets/logo.png",
 	"keywords": [
-		"pstack",
-		"poteto-mode",
+		"odd-stack",
+		"odd-mode",
 		"workflow",
 		"principles",
 		"agent-style",
