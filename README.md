@@ -1,37 +1,37 @@
 Work in progress, learning what I can from this stack, then going to tweak how I want.
 ____
-# odd-stack
+# oddstack
 
-i'm [poteto](https://x.com/poteto). i'm not a president or ceo, but i've worked with millions of lines of code at Meta, Netflix, and Cursor. i'm also on the react core team where i help build and maintain react compiler.
+i'm [odium](https://x.com/odium). i'm not a president or ceo, but i've worked with millions of lines of code at Meta, Netflix, and Cursor. i'm also on the react core team where i help build and maintain react compiler.
 
 this is a fork of [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan.
 
 there's a growing sense that ai writes too much slop code. i agree. i don't want to ship like a team of twenty slop artists. throughput without quality is not a goal i aspire to. if you want to go fast, go deep first. 
 
-**odd-stack is my answer.** these are the same skills i use everyday to ship high quality code at Cursor. this turns cursor into a real engineering team. the goal is not to maximize loc, in fact it's the opposite. odd-stack helps you write less, but higher quality code.
+**oddstack is my answer.** these are the same skills i use everyday to ship high quality code at Cursor. this turns cursor into a real engineering team. the goal is not to maximize loc, in fact it's the opposite. oddstack helps you write less, but higher quality code.
 
-**odd-stack gives you fearless parallelism.** when you can go deep on one agent and trust it to write good, verifiable code, you can truly parallelize with confidence. start multiple agents up with `odd-mode` and trust that they'll apply rigorous engineering principles to their work.
+**oddstack gives you fearless parallelism.** when you can go deep on one agent and trust it to write good, verifiable code, you can truly parallelize with confidence. start multiple agents up with `odd-mode` and trust that they'll apply rigorous engineering principles to their work.
 
-**cursor gives you the best of all worlds.** every frontier model has its strengths and weaknesses. use any model with odd-stack. in fact, many of my skills use multi-model workflows to take advantage of each model's unique strengths.
+**cursor gives you the best of all worlds.** every frontier model has its strengths and weaknesses. use any model with oddstack. in fact, many of my skills use multi-model workflows to take advantage of each model's unique strengths.
 
 fork it. improve it. make it yours. PRs are welcome! 
 
 ## install
 
 ```bash
-/add-plugin odd-stack
+/add-plugin oddstack
 ```
 
 ## get started
 
 two steps:
 
-1. run [`/setup-odd-stack`](./skills/setup-odd-stack/SKILL.md), pick a reasoning budget, and choose which models you want.
+1. run [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md), pick a reasoning budget, and choose which models you want.
 2. use [`/odd-mode`](./skills/odd-mode/SKILL.md) whenever you're doing anything that requires rigor.
 
-new here? the [odd-stack guide](./docs/guide/README.md) walks you through a first real task, from setup and prompting through verification and overnight runs. stuck, or unsure which skill fits? ask [`/odd-help`](./skills/odd-help/SKILL.md).
+new here? the [oddstack guide](./docs/guide/README.md) walks you through a first real task, from setup and prompting through verification and overnight runs. stuck, or unsure which skill fits? ask [`/odium-help`](./skills/odium-help/SKILL.md).
 
-that's it. the other skills are situational; the mode skill uses them for you as needed. out of the box the mode splits work by model strength: code delegates (feature, refactoring, bug fix, perf, hillclimb) go to grok, while the hardest changes, prose, and judgment go to opus 5.5. the default panel is opus 5.5 / grok. [`/setup-odd-stack`](./skills/setup-odd-stack/SKILL.md) changes any of it.
+that's it. the other skills are situational; the mode skill uses them for you as needed. out of the box the mode splits work by model strength: code delegates (feature, refactoring, bug fix, perf, hillclimb) go to grok, while the hardest changes, prose, and judgment go to opus 5.5. the default panel is opus 5.5 / grok. [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md) changes any of it.
 
 ## usage
 
@@ -114,7 +114,7 @@ to keep [`/odd-mode`](./skills/odd-mode/SKILL.md) on across turns, pick it from 
 | skill | use it when |
 |---|---|
 | [`/odd-mode`](./skills/odd-mode/SKILL.md) | default entry point for any non-trivial task. |
-| [`/odd-help`](./skills/odd-help/SKILL.md) | you're new to odd-stack, or unsure which skill, playbook, or principle fits. finds out what you're trying to do, answers that part, and hands you a prompt to type. runs only when you type `/odd-help`. |
+| [`/odium-help`](./skills/odium-help/SKILL.md) | you're new to oddstack, or unsure which skill, playbook, or principle fits. finds out what you're trying to do, answers that part, and hands you a prompt to type. runs only when you type `/odium-help`. |
 | [`/how`](./skills/how/SKILL.md) | you want a walkthrough of how a subsystem works. |
 | [`/why`](./skills/why/SKILL.md) | you want to know why something was built this way. discovers available MCPs at run time and queries each evidence category in parallel (source control, issue tracker, long-form docs, real-time chat, infra observability, error tracking, analytics warehouse). |
 | [`/recall`](./skills/recall/SKILL.md) | you're starting or resuming work and want your recent context on a topic rebuilt from your own chat history and the shared record, handed back as a tight current-state brief. |
@@ -125,7 +125,7 @@ to keep [`/odd-mode`](./skills/odd-mode/SKILL.md) on across turns, pick it from 
 | [`/interrogate`](./skills/interrogate/SKILL.md) | you have a diff and want different models to try to break it, including a strict code-quality lens. |
 | [`/automate-me`](./skills/automate-me/SKILL.md) | you want your own `-mode` skill, drafted from how you've actually worked. |
 | [`/make-bot-ui`](./skills/make-bot-ui/SKILL.md) | you want a page or dashboard whose buttons wake a Grok Bot over a webhook, including the sender-key handoff and Tailscale. |
-| [`/setup-odd-stack`](./skills/setup-odd-stack/SKILL.md) | you want to pick which models odd-stack uses per role. detects your models and writes a config rule. |
+| [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md) | you want to pick which models oddstack uses per role. detects your models and writes a config rule. |
 | [`/reflect`](./skills/reflect/SKILL.md) | a long task landed and you want the recipe captured as a skill edit. |
 | [`/correct`](./skills/correct/SKILL.md) | you keep correcting agents for the same mistakes. mines history for mistake classes, fixes each at the highest level that works (architecture, then types, lint, and ci, then tests, with docs last), and keeps a table pairing each rule with what enforces it. |
 | [`/teach`](./skills/teach/SKILL.md) | you want to actually understand a change or subsystem, not just have it summarized. runs how + why and weaves one plain explanation, built up diagram by diagram. |
@@ -187,18 +187,18 @@ reflect:           /reflect that took too long. capture what we learned so the n
 correct:           /correct
 show-me-your-work: /show-me-your-work keep a decision trail i can review when i'm back.
 automate-me:       /automate-me
-help:              /odd-help which skill should i use to review this branch?
+help:              /odium-help which skill should i use to review this branch?
 ```
 
 </details>
 
-## the `odd-agent` and Comment Sicko subagents
+## the `odium-agent` and Comment Sicko subagents
 
-odd-stack also ships a subagent that runs my style end to end. spawn it from a parent agent via [`subagent_type: "odd-agent"`](./agents/odd-agent.md). it reads `odd-mode` in full, including its inline principles index, before doing any work. substituting `generalPurpose` skips that read and drifts.
+oddstack also ships a subagent that runs my style end to end. spawn it from a parent agent via [`subagent_type: "odium-agent"`](./agents/odium-agent.md). it reads `odd-mode` in full, including its inline principles index, before doing any work. substituting `generalPurpose` skips that read and drifts.
 
-[`/odd-mode`](./skills/odd-mode/SKILL.md) and [`subagent_type: "odd-agent"`](./agents/odd-agent.md) route through the same wrapper.
+[`/odd-mode`](./skills/odd-mode/SKILL.md) and [`subagent_type: "odium-agent"`](./agents/odium-agent.md) route through the same wrapper.
 
-odd-stack also ships [Comment Sicko](./agents/comment-sicko.md), a read-only comment reviewer available as `subagent_type: "Comment Sicko"`. usually invoke it through [`/no-comments`](./skills/no-comments/SKILL.md), not directly.
+oddstack also ships [Comment Sicko](./agents/comment-sicko.md), a read-only comment reviewer available as `subagent_type: "Comment Sicko"`. usually invoke it through [`/no-comments`](./skills/no-comments/SKILL.md), not directly.
 
 ## principles
 
@@ -244,27 +244,27 @@ a few things `odd-mode` references but doesn't bundle:
 - `control-cli` (for CLIs and TUIs) and `control-ui` (for browser, Electron, web) ship in `cursor-team-kit` too.
 - `/create-skill` is a cursor built-in. cursor also ships a built-in `/babysit`; inside `odd-mode`, the [babysit playbook](./skills/odd-mode/playbooks/babysit.md) supersedes it for pr-status requests.
 
-install `cursor-team-kit` alongside odd-stack if you want the full set.
+install `cursor-team-kit` alongside oddstack if you want the full set.
 
 ## why are there no planning skills?
 
-cursor already has a great plan mode which works great with odd-stack. but personally, i don't believe in planning. the best spec is code. if you do want to make a plan, [`/odd-mode`](./skills/odd-mode/SKILL.md) covers it, but it's not a default. 
+cursor already has a great plan mode which works great with oddstack. but personally, i don't believe in planning. the best spec is code. if you do want to make a plan, [`/odd-mode`](./skills/odd-mode/SKILL.md) covers it, but it's not a default. 
 
 ## make it yours
 
 `odd-mode` is my style. you may not want exactly that.
 
-type [`/automate-me`](./skills/automate-me/SKILL.md). it mines your recent transcripts, drafts a `<your-name>-mode` skill from how you've actually worked, and routes through odd-stack underneath. you keep odd-stack as the base and end up with your own routing skill alongside `odd-mode`.
+type [`/automate-me`](./skills/automate-me/SKILL.md). it mines your recent transcripts, drafts a `<your-name>-mode` skill from how you've actually worked, and routes through oddstack underneath. you keep oddstack as the base and end up with your own routing skill alongside `odd-mode`.
 
-models are configurable too. type [`/setup-odd-stack`](./skills/setup-odd-stack/SKILL.md). it detects the models you have access to and writes a small always-applied rule mapping each role (code, judgment, the review panels) to a model. every skill reads it and falls back to sensible defaults when the rule is absent, so you override only what you want.
+models are configurable too. type [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md). it detects the models you have access to and writes a small always-applied rule mapping each role (code, judgment, the review panels) to a model. every skill reads it and falls back to sensible defaults when the rule is absent, so you override only what you want.
 
-when a default changes, a rule written before the change still pins the old default. delete those role lines, or delete the file, then run `/setup-odd-stack` again. a rerun keeps any role whose model differs from the default.
+when a default changes, a rule written before the change still pins the old default. delete those role lines, or delete the file, then run `/setup-oddstack` again. a rerun keeps any role whose model differs from the default.
 
 ## automations
 
-odd-stack also ships a dormant [benny automation pack](./automations/benny/). benny triages slack issue reports, then reproduces and fixes confirmed bugs with real ui evidence. its files are not registered as slash skills.
+oddstack also ships a dormant [benny automation pack](./automations/benny/). benny triages slack issue reports, then reproduces and fixes confirmed bugs with real ui evidence. its files are not registered as slash skills.
 
-to set it up, point cursor at [`FOR_AGENTS.md`](./automations/benny/FOR_AGENTS.md). setup copies the pack into the target repository at `.cursor/automations/benny/`, enables odd-stack there for shared skills, and keeps user configuration outside the copied pack.
+to set it up, point cursor at [`FOR_AGENTS.md`](./automations/benny/FOR_AGENTS.md). setup copies the pack into the target repository at `.cursor/automations/benny/`, enables oddstack there for shared skills, and keeps user configuration outside the copied pack.
 
 ## license
 

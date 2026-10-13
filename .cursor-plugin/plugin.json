@@ -1,8 +1,8 @@
 {
-	"name": "odd-stack",
-	"displayName": "odd-stack",
+	"name": "oddstack",
+	"displayName": "oddstack",
 	"version": "0.15.15-odd.1",
-	"description": "if you want to go fast, go deep first. odd-stack helps you write less, but higher quality code. rigorous agent workflows you can parallelize with confidence.",
+	"description": "if you want to go fast, go deep first. oddstack helps you write less, but higher quality code. rigorous agent workflows you can parallelize with confidence.",
 	"author": {
 		"name": "Lauren Tan"
 	},
@@ -11,7 +11,7 @@
 	"license": "MIT",
 	"logo": "assets/logo.png",
 	"keywords": [
-		"odd-stack",
+		"oddstack",
 		"odd-mode",
 		"workflow",
 		"principles",
