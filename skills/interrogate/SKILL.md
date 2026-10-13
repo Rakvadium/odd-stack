@@ -33,19 +33,19 @@ Write one clear paragraph. If you're unsure about the intent, ask the user befor
 
 ## Step 3, Spawn Reviewers
 
-Launch all reviewers in a single message using the Task tool. Use the `interrogate reviewers` line in `~/.cursor/rules/oddstack-models.mdc`, one reviewer per entry, extending or shrinking the Reviewer A/B labels below to the configured entry count. If the rule or that line is missing, use the table defaults.
+Launch all reviewers in a single message using the Task tool. Read the `interrogate reviewers` line in [`../odd-mode/models.txt`](../odd-mode/models.txt) and follow its `# harness` section. The relative path is the odd-mode skill's `models.txt`, and it resolves through a per-skill symlink. If it misses, open the odd-mode skill and read `models.txt` there. A same-named line in `~/.cursor/rules/oddstack-models.mdc` overrides the map when that file exists. Spawn one reviewer per entry this harness can run, extending or shrinking the Reviewer A/B labels below to that count. If the line is missing, use the table defaults.
 
 | Subagent | Default model |
 |----------|---------------|
-| Reviewer A | `claude-opus-5-5-xhigh` |
-| Reviewer B | `grok-4.7-xhigh-fast` |
+| Reviewer A | `claude-opus-5-5-high` |
+| Reviewer B | `grok-4.7-high-fast` |
 
-For each reviewer:
+For each reviewer this harness can run:
 - `subagent_type`: `generalPurpose`
 - `model`: the configured `interrogate reviewers` entry, or the table default with no configured line. For an `auto` or `inherit-parent` entry, omit `model` so that reviewer runs on the parent model.
 - `readonly`: `true`
 
-If the Task tool rejects a configured entry, run that reviewer on the table default of its family and say so. Families go by prefix: `claude-*` and `grok-*`. With no family match, use Reviewer A's default. If it rejects a table default, check the valid slugs in the Task tool's error message, pick the closest equivalent (prefer the same family and reasoning tier), spawn with it, and open a separate PR to update the default table. Do not block the review on the slug issue. Never treat an alias entry as a rejected slug or apply either fallback to it.
+A `grok-*` entry this harness cannot select uses the session model, and you say so. A `claude-*` entry this harness cannot select stays unspawned. Flag that it belongs in a Claude Code thread or a T3 Code thread on the Claude provider. Never fill that seat with Grok. When this harness should be able to select the family and the tool rejects the exact slug, use the closest valid slug of the same family (`claude-*` or `grok-*`) and say so. If it rejects that too, check the valid slugs in the tool's error message, pick the closest same-family equivalent, spawn with it, and open a separate PR to update the default table. Do not block the review on the slug issue. Never treat an alias entry as a rejected slug.
 
 Read `references/reviewer-prompt.md` and fill in the template with:
 1. The stated intent

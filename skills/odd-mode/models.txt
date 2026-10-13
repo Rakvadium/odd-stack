@@ -1,0 +1,68 @@
+# oddstack model map
+# One role per line. The form is `<role>: <slug>` or `<role>: <slug>, <slug>`.
+# `inherit-parent` or `auto` means omit the Task `model` field. The role runs on the parent chat model.
+# An alias entry in a panel list still counts toward its fan-out.
+# A missing role line falls back to the default named in the skill that spawns it.
+#
+# Find this file
+# It lives in the odd-mode skill as models.txt.
+# From a sibling skill, read ../odd-mode/models.txt.
+# That relative path works in the repo and when each skill folder is linked on its own into
+# ~/.agents/skills, ~/.claude/skills, ~/.cursor/skills, ~/.codex/skills, or Grok Bot's skill library.
+# odd-mode is installed beside the other skills, so the path resolves through the symlink or junction.
+# A path up to the repo root, such as ../../models.txt, fails once the skill folder is linked by itself. `../` is then the skills directory, not the repo.
+# If the relative path misses, open the odd-mode skill the same way you opened the current skill and read models.txt there.
+#
+# Optional per-machine override
+# If ~/.cursor/rules/oddstack-models.mdc exists, a role line there replaces the same role line here.
+# Roles absent from that file keep the line here.
+# /setup-oddstack writes this file. It does not write the Cursor rule.
+# The rule is only a local override for a machine that still has one.
+#
+# Providers
+# The slug prefix is the provider.
+# grok-* lives on cursor. Harnesses: Cursor, a T3 Code thread on the Cursor provider, Grok Bot.
+# claude-* lives on claude. Harnesses: Claude Code, a T3 Code thread on the Claude provider.
+# Design and judgment go to Claude Opus. Those seats are every claude-* entry:
+# judgment and prose, hardest tasks, how explainer, why synthesizer,
+# reflect judgment / divergent / synthesizer, and the claude-* entry of
+# arena runners, arena cross-judge pool, architect runners, and interrogate reviewers.
+#
+# This fork's accounts
+# Cursor does not include third-party models, so a claude-* slug is not selectable there.
+# Claude Code and Codex cannot select grok-*.
+# If the tool you are in can select the slug anyway, use it.
+#
+# Harness
+# Use the slug when this harness can select it.
+# When it cannot:
+# - A grok-* role in Claude Code, Codex, or a T3 Code thread whose provider is not Cursor:
+#   omit model, use the session model, and say so in one line.
+# - A claude-* role in Cursor, Codex, Grok Bot, or a T3 Code thread whose provider is not Claude:
+#   leave that seat unspawned. Flag that it belongs in a Claude Code thread or a T3 Code thread on the Claude provider.
+#   Running it on Grok, or on the session model when that model is not Claude Opus, is the wrong outcome.
+#   A panel still spawns the seats this harness can select.
+# - `inherit-parent` and `auto` ignore provider. Omit model.
+# - When this harness should be able to select the family and the tool rejects the exact slug,
+#   use the closest valid slug of the same family (claude-* or grok-*) and say so.
+#   A rejection is not a reason to cross families.
+#
+# budget: medium (high)
+
+feature, refactoring: grok-4.7-high-fast
+bug-fix: grok-4.7-high-fast
+perf-issue: grok-4.7-high-fast
+hillclimb: grok-4.7-high-fast
+judgment and prose: claude-opus-5-5-high
+hardest tasks: claude-opus-5-5-high
+how explorer: grok-4.7-high-fast
+how explainer: claude-opus-5-5-high
+why investigators: grok-4.7-high-fast
+why synthesizer: claude-opus-5-5-high
+reflect tooling: grok-4.7-high-fast
+reflect judgment, divergent, synthesizer: claude-opus-5-5-high
+arena runners: claude-opus-5-5-high, grok-4.7-high-fast
+arena cross-judge pool: claude-opus-5-5-high, grok-4.7-high-fast
+swarm workers: grok-4.7-high-fast
+architect runners: claude-opus-5-5-high, grok-4.7-high-fast
+interrogate reviewers: claude-opus-5-5-high, grok-4.7-high-fast

@@ -125,7 +125,7 @@ to keep [`/odd-mode`](./skills/odd-mode/SKILL.md) on across turns, pick it from 
 | [`/interrogate`](./skills/interrogate/SKILL.md) | you have a diff and want different models to try to break it, including a strict code-quality lens. |
 | [`/automate-me`](./skills/automate-me/SKILL.md) | you want your own `-mode` skill, drafted from how you've actually worked. |
 | [`/make-bot-ui`](./skills/make-bot-ui/SKILL.md) | you want a page or dashboard whose buttons wake a Grok Bot over a webhook, including the sender-key handoff and Tailscale. |
-| [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md) | you want to pick which models oddstack uses per role. detects your models and writes a config rule. |
+| [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md) | you want to pick which models oddstack uses per role. detects your models and edits the odd-mode skill's `models.txt`. |
 | [`/reflect`](./skills/reflect/SKILL.md) | a long task landed and you want the recipe captured as a skill edit. |
 | [`/correct`](./skills/correct/SKILL.md) | you keep correcting agents for the same mistakes. mines history for mistake classes, fixes each at the highest level that works (architecture, then types, lint, and ci, then tests, with docs last), and keeps a table pairing each rule with what enforces it. |
 | [`/teach`](./skills/teach/SKILL.md) | you want to actually understand a change or subsystem, not just have it summarized. runs how + why and weaves one plain explanation, built up diagram by diagram. |
@@ -256,9 +256,9 @@ cursor already has a great plan mode which works great with oddstack. but person
 
 type [`/automate-me`](./skills/automate-me/SKILL.md). it mines your recent transcripts, drafts a `<your-name>-mode` skill from how you've actually worked, and routes through oddstack underneath. you keep oddstack as the base and end up with your own routing skill alongside `odd-mode`.
 
-models are configurable too. type [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md). it detects the models you have access to and writes a small always-applied rule mapping each role (code, judgment, the review panels) to a model. every skill reads it and falls back to sensible defaults when the rule is absent, so you override only what you want.
+models are configurable too. type [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md). it detects the models this harness can select and edits [`skills/odd-mode/models.txt`](./skills/odd-mode/models.txt), the map every skill reads. cursor, claude code, codex, t3 code, and grok bot all see it, because the file lives inside the odd-mode skill and each skill links to it as a sibling. a `~/.cursor/rules/oddstack-models.mdc` file, when you still have one, overrides the map on that machine.
 
-when a default changes, a rule written before the change still pins the old default. delete those role lines, or delete the file, then run `/setup-oddstack` again. a rerun keeps any role whose model differs from the default.
+when a default changes, a map edited before the change still pins the old default. delete those role lines, then run `/setup-oddstack` again. a rerun keeps any role whose model differs from the default by family, list, or alias.
 
 ## automations
 
