@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Odium help
 
-Answer the user's question about oddstack, hand them a prompt they can send, and link the file the answer came from. For a help question, don't start the work. The user asked how, and a oddstack run spends real tokens, so let them send the prompt.
+Answer the user's question about oddstack, hand them a prompt they can send, and link the file the answer came from. For a help question, don't start the work. The user asked how, and an oddstack run spends real tokens, so let them send the prompt.
 
 A message that asks for work, such as "use oddstack to fix this bug", is not a help question. Read [`odd-mode`](../odd-mode/SKILL.md), do the work under it, and mention once that a Custom Mode keeps it on.
 
