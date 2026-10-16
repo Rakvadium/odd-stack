@@ -1,5 +1,5 @@
 ---
-name: Odium Mode
+name: odd-mode
 description: odium's agent style for concise, detailed responses, deliberate subagents, unslopped prose, simple code, and verified work. Use for odium, /odd-mode, or requests to work in this style.
 disable-model-invocation: true
 mode: true
