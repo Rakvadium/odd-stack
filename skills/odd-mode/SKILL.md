@@ -125,7 +125,7 @@ Comments follow the same rule as the reply. Write them clean as you go. Keep a c
 
 ## Playbooks
 
-Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below, open its file, and copy its steps in verbatim.
+Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below, open its file, and copy its steps in verbatim. Use the harness's todo tool when it has one. Without one, keep the list in `.odd-todo.md` at the worktree root and never commit it. Add `.odd-todo.md` to the file `git rev-parse --git-path info/exclude` prints. Start the file with one `Playbook: playbooks/<file>.md` line per matched playbook, then a markdown checklist. Copy each step's first line as `- [ ] <step>`, with or without its number. Mark a done step `- [x]`. A skipped step keeps its line and ends with `skip: <reason>`.
 
 A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the **figure-it-out** skill even when a narrower playbook like Feature fits. Use **figure-it-out** whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task. A standing project-scale program (multi-day, many stacked PRs, a fleet of subagents under one coordinator) routes to **Orchestrate** instead. figure-it-out designs one bespoke run, orchestrate runs the program.
 
