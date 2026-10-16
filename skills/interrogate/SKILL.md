@@ -45,7 +45,7 @@ For each reviewer this harness can run:
 - `model`: the configured `interrogate reviewers` entry, or the table default with no configured line. For an `auto` or `inherit-parent` entry, omit `model` so that reviewer runs on the parent model.
 - `readonly`: `true`
 
-A `grok-*` entry this harness cannot select uses the session model, and you say so. A `claude-*` entry this harness cannot select stays unspawned. Flag that it belongs in a Claude Code thread or a T3 Code thread on the Claude provider. Never fill that seat with Grok. When this harness should be able to select the family and the tool rejects the exact slug, use the closest valid slug of the same family (`claude-*` or `grok-*`) and say so. If it rejects that too, check the valid slugs in the tool's error message, pick the closest same-family equivalent, spawn with it, and open a separate PR to update the default table. Do not block the review on the slug issue. Never treat an alias entry as a rejected slug.
+Never fill a `claude-*` seat with Grok. When this harness should be able to select the family and the tool rejects the exact slug, use the closest valid slug of the same family (`claude-*` or `grok-*`) and say so. If it rejects that too, check the valid slugs in the tool's error message, pick the closest same-family equivalent, spawn with it, and open a separate PR to update the default table. Do not block the review on the slug issue. Never treat an alias entry as a rejected slug.
 
 Read `references/reviewer-prompt.md` and fill in the template with:
 1. The stated intent

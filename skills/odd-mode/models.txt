@@ -34,12 +34,17 @@
 # If the tool you are in can select the slug anyway, use it.
 #
 # Harness
-# Use the slug when this harness can select it.
-# When it cannot:
-# - A grok-* role in Claude Code, Codex, or a T3 Code thread whose provider is not Cursor:
+# In T3 Code with delegate_task (often mcp__t3-code__delegate_task), spawn every role on its slug's provider through delegate_task.
+#   Do this even when this thread could select the slug natively.
+#   grok-* goes to providerInstanceId cursor. claude-* goes to claudeAgent.
+#   Split the slug into model and options, as in grok-4.7-high-fast → {providerInstanceId: "cursor", model: "grok-4.7", options: {reasoning_effort: "high", fastMode: true}}.
+#   Confirm provider ids, models, and option ids against orchestrator_capabilities. Don't trust the example.
+# Elsewhere, use the slug when this harness can select it.
+# When it cannot, and this harness has no route to the slug's provider:
+# - A grok-* role in Claude Code, Codex, or any harness with no route to Cursor:
 #   omit model, use the session model, and say so in one line.
-# - A claude-* role in Cursor, Codex, Grok Bot, or a T3 Code thread whose provider is not Claude:
-#   leave that seat unspawned. Flag that it belongs in a Claude Code thread or a T3 Code thread on the Claude provider.
+# - A claude-* role in Cursor, Codex, Grok Bot, or any harness with no route to Claude:
+#   leave that seat unspawned. Flag that it belongs in Claude Code or a T3 Code thread on any provider.
 #   Running it on Grok, or on the session model when that model is not Claude Opus, is the wrong outcome.
 #   A panel still spawns the seats this harness can select.
 # - `inherit-parent` and `auto` ignore provider. Omit model.
