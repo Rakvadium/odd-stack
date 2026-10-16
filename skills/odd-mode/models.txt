@@ -36,7 +36,8 @@
 # Harness
 # In T3 Code with delegate_task (often mcp__t3-code__delegate_task), spawn every role on its slug's provider through delegate_task.
 #   Do this even when this thread could select the slug natively.
-#   grok-* goes to providerInstanceId cursor. claude-* goes to claudeAgent.
+#   grok-* goes to providerInstanceId cursor, never to T3's native grok provider. claude-* goes to claudeAgent.
+#   If that route cannot start, stop and report. Do not fall back to Gemini, Codex, or native grok unless the operator says so.
 #   Split the slug into model and options, as in grok-4.7-high-fast → {providerInstanceId: "cursor", model: "grok-4.7", options: {reasoning_effort: "high", fastMode: true}}.
 #   Confirm provider ids, models, and option ids against orchestrator_capabilities. Don't trust the example.
 # Elsewhere, use the slug when this harness can select it.
