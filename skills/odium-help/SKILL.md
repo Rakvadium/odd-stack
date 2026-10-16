@@ -42,7 +42,7 @@ Installing changes nothing until the user invokes a skill. Only `/setup-oddstack
 
 If cost is the worry, say where the tokens go and how to spend fewer. oddstack spends extra tokens on subagents and review panels. Rerun `/setup-oddstack` and pick a smaller budget or cheaper models. A role set to `auto` or `inherit-parent` runs on the chat's model, which saves tokens when the chat runs on Auto or a cheaper model. A shorter panel list runs fewer subagents, one for each entry. Save `/odd-mode` for work that needs rigor.
 
-The model map travels with the skills, so Cursor, Claude Code, Codex, T3 Code, and Grok Bot read the same roles. A harness that cannot select a role's model follows the `# harness` section of [`../odd-mode/models.txt`](../odd-mode/models.txt). A Grok role outside Cursor uses the session model. An Opus role outside Claude is flagged for a Claude thread and is not run on Grok. Custom Modes and `/loop` stay Cursor features.
+The model map travels with the skills, so Cursor, Claude Code, Codex, T3 Code, and Grok Bot read the same roles. A harness that cannot select a role's model follows the `# harness` section of [`../odd-mode/models.txt`](../odd-mode/models.txt). An Opus role is never run on Grok. Custom Modes and `/loop` stay Cursor features.
 
 ## Start a task with `/odd-mode`
 
