@@ -4,7 +4,7 @@ For a bot (such as Grok Bot) that starts T3 Code threads through the T3 MCP tool
 
 ## The lead
 
-Launch every lead thread on `claudeAgent` with `claude-opus-5-5`. The lead plans, routes each role per `models.txt`, reviews, and never builds. A lead on `cursor` never reaches a terminal state in T3 Code (see odd-mode's Subagents section), so `t3_thread_wait` on it would never return.
+Launch every lead thread with `modelSelection: {"instanceId":"claudeAgent","model":"claude-opus-5-5","options":{"effort":"high"}}`, the `judgment and prose` line of `models.txt`. Without it, a launch from outside T3 gets the project's default model. The lead plans, routes each role per `models.txt`, reviews, and never builds. Never launch a lead on `cursor`. A `cursor` thread never reaches a terminal state in T3 Code (see odd-mode's Subagents section), so you would never see it finish.
 
 Do not pick models for the lead's children. The lead reads `models.txt` from the repo it runs in.
 
@@ -26,7 +26,7 @@ Use the absolute path on the first line. A repo-relative path such as `skills/od
 ## Launching
 
 1. Run `t3_thread_list` with `titleContains` set to the planned title. If a thread for this request already exists, send to it or report it. Never launch a second one. `t3_thread_launch` has no idempotency key, so a retried launch makes a duplicate thread.
-2. Launch with `t3_thread_launch`, `workspaceStrategy` set to a new worktree, and the prompt in `message`.
+2. Launch with `t3_thread_launch`. Pass `projectId` from `t3_project_list`, which a caller outside T3 must send, and the `modelSelection` above. Set `workspaceStrategy` to `{"type":"worktree","baseRef":"<branch the work starts from>","branch":"<new branch>","startFromOrigin":false}`, and put the prompt in `message`. Omitting `workspaceStrategy` runs the thread in the project's main checkout.
 3. Keep the returned `threadId`. Send approvals and answers only through `t3_thread_send` on that id.
 
 ## Monitoring

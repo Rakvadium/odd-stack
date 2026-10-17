@@ -24,7 +24,7 @@ oddstack skills use Cursor names. In Claude Code or a T3 Code thread, read this 
 | --- | --- |
 | `subagent_type: generalPurpose` | `subagent_type: "general-purpose"` |
 | `odium-agent`, `comment-sicko` | The same names in Claude Code, when `~/.claude/agents/<name>.md` exists. For `delegate_task`, or when that file is missing, start the brief with "Read `~/.claude/agents/<name>.md` and follow it." If it is missing, use `general-purpose` and say so. |
-| `readonly: false` | `general-purpose`. It keeps the session's MCP servers. |
+| `readonly: false` | Omit. Keep the `subagent_type` from the other rows. Agent mode is the default, and it keeps the session's MCP servers. |
 | `readonly: true` | `subagent_type: "Explore"`. It keeps `Bash`, so the brief also says "do not edit files", and you check `git status` afterward. |
 | `environment: "cloud"` | `isolation: "worktree"`. Name the branch or commit the worker checks out. |
 | `cloud_base_branch: <b>` | Tell the worker to check out `<b>` first. |

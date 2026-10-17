@@ -108,7 +108,15 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 A search tool such as `glob` misses a file in the temp folder, so the first line names the read tool.
 
-Then wait with `t3_thread_wait` on the `childThreadId` with `timeoutMs: 120000`. After each timeout, read new messages with `t3_thread_read` from the last position you read. Act on the first assistant message that ends in `REPORT-END`, ignore anything the child posts later, then `task_cancel` the task and delete the marker. Stop waiting at the brief's timebox, cancel the child, and report the unit as timed out. Drop this rule once a `cursor` child's thread reaches `completed` on its own.
+A `cursor` child's completion never arrives, so stay in the turn and wait for it yourself, even though `delegate_task` says to end the turn. Keep its `taskId` and `childThreadId`. Loop:
+
+1. Call `t3_thread_wait` on the `childThreadId` with `timeoutMs: 120000`.
+2. Call `t3_thread_read` with `afterPosition` set to the previous call's `nextPosition` (0 the first time).
+3. If an assistant message ends in `REPORT-END`, act on the first one, ignore anything later, `task_cancel` the `taskId`, delete the marker, and stop.
+4. If the thread reached a terminal state, read it once, delete the marker, and stop. A `completed` status means T3 fixed the driver, so drop this rule.
+5. Otherwise go back to step 1. After 60 minutes with no `REPORT-END`, or the brief's timebox if it set one, `task_cancel`, delete the marker, and report that child as timed out.
+
+Drop this rule once a `cursor` child's thread reaches `completed` on its own.
 
 **Defaults for every `Task` call.** `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context, and an explicit model per role from [`models.txt`](models.txt) in this skill (`/setup-oddstack` edits that file). Code defaults to `grok-4.7-high-fast`. Prose and judgment default to `claude-opus-5-5-high`. Code delegates tier by difficulty. The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to the `hardest tasks` model (`claude-opus-5-5-high`), whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits go to the fast code model. Follow the `# harness` section of `models.txt` for any role this harness cannot select. Design and judgment authoring stays on Claude Opus, never on Grok. The cross-provider review seat is exempt. A role line in `~/.cursor/rules/oddstack-models.mdc` overrides the same line in `models.txt` when that file exists. A missing role line keeps the default in the routed skill. `inherit-parent` or `auto` runs on the parent chat model (omit Task `model`). Each code playbook's configured model comes from its line in `models.txt` (`feature, refactoring`, `bug-fix`, `perf-issue`, or `hillclimb`), and the hardest changes read `hardest tasks`. Prose and judgment read `judgment and prose`. The routed skills (`how`, `why`, `arena`, `swarm`, `architect`, `interrogate`, `reflect`) read the same file via `../odd-mode/models.txt`.
 
