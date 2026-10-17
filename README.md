@@ -194,11 +194,13 @@ help:              /odium-help which skill should i use to review this branch?
 
 ## the `odium-agent` and Comment Sicko subagents
 
-oddstack also ships a subagent that runs my style end to end. spawn it from a parent agent via [`subagent_type: "odium-agent"`](./agents/odium-agent.md). it reads `odd-mode` in full, including its inline principles index, before doing any work. substituting `generalPurpose` skips that read and drifts.
+[`/odd-mode`](./skills/odd-mode/SKILL.md) runs in the chat that receives it. that chat owns the playbook, the todo list, and every subagent spawn.
 
-[`/odd-mode`](./skills/odd-mode/SKILL.md) and [`subagent_type: "odium-agent"`](./agents/odium-agent.md) route through the same wrapper.
+oddstack also ships [`subagent_type: "odium-agent"`](./agents/odium-agent.md) as the wrapper for delegates spawned during a run. it reads `odd-mode` in full, including its inline principles index, before doing any work. substituting `generalPurpose` skips that read and drifts. do not spawn `odium-agent` to run the playbook itself.
 
-oddstack also ships [Comment Sicko](./agents/comment-sicko.md), a read-only comment reviewer available as `subagent_type: "Comment Sicko"`. usually invoke it through [`/no-comments`](./skills/no-comments/SKILL.md), not directly.
+outside cursor (claude code, t3 code, grok bot), odd-mode reads [`harness.md`](./skills/odd-mode/harness.md) first. it maps cursor's tool, subagent, and model names to that harness.
+
+oddstack also ships [Comment Sicko](./agents/comment-sicko.md), a read-only comment reviewer available as `subagent_type: "comment-sicko"`. usually invoke it through [`/no-comments`](./skills/no-comments/SKILL.md), not directly.
 
 ## principles
 

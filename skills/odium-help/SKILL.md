@@ -54,7 +54,7 @@ Whether `/odd-mode` stays on depends on how the user starts it:
 - Option+Enter on Mac or Alt+Enter on Windows, or Use as Mode from the skill entry, makes it a Custom Mode. It stays in context every turn until the user exits the mode, and it stays out of casual turns.
 - Cursor's docs list Custom Modes in the Agents Window and the CLI. Elsewhere, start each new task with `/odd-mode`.
 
-Link [Cursor's skills docs](https://cursor.com/docs/skills) when this comes up. Mid-chat, "new task" makes the mode match a fresh playbook. `/odd-mode` already uses `odium-agent` for the subagents its playbook steps spawn. To get the same style from a subagent of your own, spawn it with `subagent_type: "odium-agent"`.
+Link [Cursor's skills docs](https://cursor.com/docs/skills) when this comes up. Mid-chat, "new task" makes the mode match a fresh playbook. The chat that receives `/odd-mode` runs the playbook, and uses `odium-agent` for the delegates its steps spawn. To get the same style from a delegate of your own, spawn it with `subagent_type: "odium-agent"`. Never spawn one to run the playbook itself.
 
 ## Pick a skill
 
