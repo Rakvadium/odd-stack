@@ -1,6 +1,6 @@
 # oddstack outside Cursor
 
-oddstack skills use Cursor names. In Claude Code or a T3 Code thread, read this file once per session, then map each Cursor name with the tables below. `<skills>` means the folder that holds `odd-mode/`, which is this file's grandparent. If a Cursor field has no row, drop it and say so. Never pass a field or value the tool schema rejects.
+oddstack skills use Cursor names. In Claude Code or a T3 Code thread, read this file once per session, then map each Cursor name with the tables below. `<skills>` means the folder that holds `odd-mode/`, which is this file's grandparent. If a Cursor field has no row, drop it and say so. Never pass a field or value the tool schema rejects. The Models section applies in every harness, Cursor included.
 
 ## Skills
 
@@ -13,7 +13,7 @@ oddstack skills use Cursor names. In Claude Code or a T3 Code thread, read this 
 
 | Cursor | Here |
 | --- | --- |
-| `Task` | `Agent` in Claude Code. `delegate_task` in a T3 Code thread, for every role, per the `# Harness` section of `models.txt`. A `cursor` child also needs the done marker in odd-mode's Subagents section. |
+| `Task` | `Agent` in Claude Code. `delegate_task` in a T3 Code thread, for every role, per Models below. A `cursor` child also needs the done marker in odd-mode's Subagents section. |
 | `AskQuestion` | `AskUserQuestion`. In `-p` mode it is absent, so ask in plain text. |
 | Open a todolist | `TodoWrite` if the session offers it. Otherwise `.odd-todo.md`, per odd-mode's Playbooks section. |
 | `Grep`, `Glob` | `Bash` with `rg` when the session has neither. |
@@ -35,13 +35,20 @@ oddstack skills use Cursor names. In Claude Code or a T3 Code thread, read this 
 
 ## Models
 
-Read the role's slug from `models.txt`, then route it.
+Every skill picks models the same way. Read the role's line in `models.txt` beside this file, then spawn each entry with this table.
 
-| Slug | Claude Code | T3 Code thread |
-| --- | --- | --- |
-| `claude-<family>-<version>-<effort>`, such as `claude-opus-5-5-high` | `Agent` with `model: "opus"` and `effort: "high"`. `model` takes only `opus`, `sonnet`, `haiku`, `fable`, so this is the closest same-family slug that `models.txt` allows. | `delegate_task` per the `# Harness` section of `models.txt`. |
-| `grok-*` | No route. Follow the `# Harness` section of `models.txt`. | `delegate_task` per the `# Harness` section of `models.txt`. |
-| `auto`, `inherit-parent` | Omit `model`. | Omit `model`. |
+| Entry | T3 Code thread | Claude Code | Cursor |
+| --- | --- | --- | --- |
+| `claudeAgent <model> effort=<e>` | `delegate_task` with `target: {providerInstanceId: "claudeAgent", model: "<model>", options: {effort: "<e>"}}` | `Agent` with `model` set to the family word in `<model>` (`opus`, `sonnet`, `haiku`, or `fable`) and `effort: "<e>"` | `Task` with `model: "<model>-<e>"` if Cursor accepts it, else rule 2 |
+| `cursor <model> reasoning_effort=<e> fastMode=true` | `delegate_task` with `target: {providerInstanceId: "cursor", model: "<model>", options: {reasoning_effort: "<e>", fastMode: true}}`, after the path check and with the done marker in odd-mode's Subagents section | Rule 3 | `Task` with `model: "<model>-<e>-fast"`, such as `grok-4.7-high-fast`. Drop `-fast` when the entry has no `fastMode=true`. |
+| `inherit` | Omit `target` | Omit `model` | Omit `model` |
+
+1. In T3 Code, spawn every entry through `delegate_task` on its own provider, even when this thread could run the model natively. Never send a `cursor` entry to T3's `grok` provider. If the route cannot start, stop and report. Do not fall back to another provider unless the operator says so.
+2. A `claudeAgent` entry with no route here stays unspawned. Say it belongs in Claude Code or a T3 Code thread. Never run it on Grok, or on a session model that is not Claude Opus. A panel still spawns the entries it can.
+3. A `cursor` entry with no route here runs on the session model. Omit `model` and say so in one line. The cross-provider review seat is the exception: odd-mode's "Review runs on the other provider" rule decides it.
+4. If the tool rejects the exact model or option, use the closest valid one from the same provider and family, and say so. A rejection never moves an entry to the other provider.
+5. If the role has no line in `models.txt`, stop and report it. Do not guess a model.
+6. Leave any option the entry does not name at its default. Give each `delegate_task` a `title` naming the role, and a distinct `clientRequestId` per spawn.
 
 ## Paths
 

@@ -24,7 +24,7 @@ Infer the need from the message and the conversation. A named situation, such as
 
 Check the state that changes the answer, and mention it only when it does:
 
-- The model map ships at [`../odd-mode/models.txt`](../odd-mode/models.txt). `/setup-oddstack` edits that file. A `~/.cursor/rules/oddstack-models.mdc` file, when present, overrides it on that machine.
+- The model map ships at [`../odd-mode/models.txt`](../odd-mode/models.txt). `/setup-oddstack` edits that file.
 - No `verify-*` skill or other app harness in the project means agents have no scripted way to drive the app. Mention `/create-verification-skill` when the question is about proving a change works.
 
 When the user has not customized the map and it matters, ask whether they want to pick a model for each role and a reasoning budget now. It matters when the user is new, the question is about setup or cost, or the answer depends on which models run. Ask at most once per chat. If the need is also unclear, ask both questions together. Offer two choices:
@@ -35,14 +35,14 @@ When the user has not customized the map and it matters, ask whether they want t
 ## Get set up
 
 1. Install with `/add-plugin oddstack` in chat, or from Customize in the sidebar.
-2. Run [`/setup-oddstack`](../setup-oddstack/SKILL.md). It asks for a reasoning budget, maps a model to each role, and edits [`../odd-mode/models.txt`](../odd-mode/models.txt). The next skill read sees the edit. A leftover `~/.cursor/rules/oddstack-models.mdc` still overrides that file on that machine until it is deleted.
+2. Run [`/setup-oddstack`](../setup-oddstack/SKILL.md). It asks for a reasoning budget, maps a model to each role, and edits [`../odd-mode/models.txt`](../odd-mode/models.txt). The next skill read sees the edit.
 3. Start a real task with `/odd-mode`, a goal, and a check that can pass or fail.
 
 Installing changes nothing until the user invokes a skill. Only `/setup-oddstack` loads from the user's words. The [README](../../README.md) and [guide page 1](../../docs/guide/01-setup.md) have the details. Offer to word their first prompt with them, per [`references/prompting.md`](references/prompting.md).
 
-If cost is the worry, say where the tokens go and how to spend fewer. oddstack spends extra tokens on subagents and review panels. Rerun `/setup-oddstack` and pick a smaller budget or cheaper models. A role set to `auto` or `inherit-parent` runs on the chat's model, which saves tokens when the chat runs on Auto or a cheaper model. A shorter panel list runs fewer subagents, one for each entry. Save `/odd-mode` for work that needs rigor.
+If cost is the worry, say where the tokens go and how to spend fewer. oddstack spends extra tokens on subagents and review panels. Rerun `/setup-oddstack` and pick a smaller budget or cheaper models. A role set to `inherit` runs on the chat's model, which saves tokens when the chat runs on Auto or a cheaper model. A shorter panel list runs fewer subagents, one for each entry. Save `/odd-mode` for work that needs rigor.
 
-The model map travels with the skills, so Cursor, Claude Code, Codex, T3 Code, and Grok Bot read the same roles. A harness that cannot select a role's model follows the `# harness` section of [`../odd-mode/models.txt`](../odd-mode/models.txt). An Opus role is never run on Grok. Custom Modes and `/loop` stay Cursor features.
+The model map travels with the skills, so Cursor, Claude Code, Codex, T3 Code, and Grok Bot read the same roles. A harness that cannot route a role's model follows the Models section of [`../odd-mode/harness.md`](../odd-mode/harness.md). An Opus role is never run on Grok. Custom Modes and `/loop` stay Cursor features.
 
 ## Start a task with `/odd-mode`
 
@@ -130,7 +130,7 @@ Principles are one-rule skills that `/odd-mode` reads and cites in its replies. 
 |---|---|
 | The mode stopped applying after a few turns | It was started with Enter. Start it as a Custom Mode, or start each task with `/odd-mode`. |
 | A question got treated as the next step of the last task | Say "new task", or say the turn doesn't need the mode. |
-| A new model choice had no effect | Skills read [`../odd-mode/models.txt`](../odd-mode/models.txt) on the next load. A `~/.cursor/rules/oddstack-models.mdc` override still wins on that machine until it is deleted. |
+| A new model choice had no effect | Skills read [`../odd-mode/models.txt`](../odd-mode/models.txt) on the next load. Check that the edit is in the copy your skills folder links to. |
 | Runs cost more than expected | See the cost paragraph under Get set up. |
 | A skill didn't load on its own | Only `/setup-oddstack` loads from the user's words. The others load when the user types them or when `/odd-mode` runs them, and it doesn't run every skill. |
 | Parallel agents overwrote each other | Give each agent its own worktree, or run them as cloud agents, which each get their own machine. |

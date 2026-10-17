@@ -24,9 +24,9 @@ Run:
 
 The committed map runs at `high` reasoning, the same as the `medium` budget. `large` raises each model to `xhigh`. `unlimited` lifts each model to its highest tier, up to `max`. Opus goes to `max`. Grok tops out at `xhigh`, so it stays there. `small` lowers the reasoning and spends fewer tokens.
 
-You only override what you care about. A role with no line in the map keeps the skill's default. To restore a default, delete that role's line. A rerun of `/setup-oddstack` keeps any role whose model differs from the default by family, list, or alias. When a default changes, a map edited before the change still pins the old default, so delete those role lines, then run `/setup-oddstack` again. An old `~/.cursor/rules/oddstack-models.mdc` still overrides the map on that machine until you delete it.
+Every role needs a line in the map. A skill that finds no line for its role stops and says so, rather than guessing a model. To restore the committed choices, check out `skills/odd-mode/models.txt` from git. A rerun of `/setup-oddstack` keeps any role whose model differs from the committed map by provider, model, list, or `inherit`.
 
-You might be wondering what happens if you use Auto. Set a role to `inherit-parent` or `auto` and oddstack omits the subagent `model` field, so the subagent inherits your parent chat model. Both values mean the same thing, and neither is a model slug. For a panel role the value is a list, and one subagent runs per entry, so the list length sets the panel size. Setup also configures `swarm workers`, the default model for every `/swarm` worker unless a race names a model for each arm.
+You might be wondering what happens if you use Auto. Set a role to `inherit` and oddstack omits the subagent `model` field, so the subagent inherits your parent chat model. For a panel role the value is a list, and one subagent runs per entry, so the list length sets the panel size. Setup also configures `swarm workers`, the default model for every `/swarm` worker unless a race names a model for each arm.
 
 ## Accept the verification offer, or don't
 
@@ -43,7 +43,7 @@ The map applies the next time a skill is read. A Cursor override file, if you ke
 oddstack spends extra tokens on subagents and review panels. That's the price of the rigor. To spend fewer:
 
 - Rerun `/setup-oddstack` and pick a smaller reasoning budget or cheaper models. A strong model in the main chat with cheaper, faster models in the code roles is a good split.
-- Set a role to `auto` or `inherit-parent` so it runs on the chat's own model.
+- Set a role to `inherit` so it runs on the chat's own model.
 - Shorten a panel list. Each entry runs one subagent.
 - Save `/odd-mode` for work that needs rigor. A small, obvious edit doesn't.
 

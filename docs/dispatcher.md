@@ -4,7 +4,7 @@ For a bot (such as Grok Bot) that starts T3 Code threads through the T3 MCP tool
 
 ## The lead
 
-Launch every lead thread with `modelSelection: {"instanceId":"claudeAgent","model":"claude-opus-5-5","options":{"effort":"high"}}`, the `judgment and prose` line of `models.txt`. Without it, a launch from outside T3 gets the project's default model. The lead plans, routes each role per `models.txt`, reviews, and never builds. Never launch a lead on `cursor`. A `cursor` thread never reaches a terminal state in T3 Code (see odd-mode's Subagents section), so you would never see it finish.
+Launch every lead thread with `modelSelection: {"instanceId":"claudeAgent","model":"claude-opus-5-5","options":{"effort":"high"}}`, the `judgment and prose` line of `models.txt`. Without it, a launch from outside T3 gets the project's default model. The lead plans, routes each role per `models.txt`, reviews, and never builds. Never launch a lead on `cursor`. The lead's work is judgment, which stays on Claude Opus, and a `cursor` thread on a long path never finishes (see odd-mode's Subagents section).
 
 Do not pick models for the lead's children. The lead reads `models.txt` from the repo it runs in.
 

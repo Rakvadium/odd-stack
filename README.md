@@ -258,7 +258,7 @@ cursor already has a great plan mode which works great with oddstack. but person
 
 type [`/automate-me`](./skills/automate-me/SKILL.md). it mines your recent transcripts, drafts a `<your-name>-mode` skill from how you've actually worked, and routes through oddstack underneath. you keep oddstack as the base and end up with your own routing skill alongside `odd-mode`.
 
-models are configurable too. type [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md). it detects the models this harness can select and edits [`skills/odd-mode/models.txt`](./skills/odd-mode/models.txt), the map every skill reads. cursor, claude code, codex, t3 code, and grok bot all see it, because the file lives inside the odd-mode skill and each skill links to it as a sibling. a `~/.cursor/rules/oddstack-models.mdc` file, when you still have one, overrides the map on that machine.
+models are configurable too. type [`/setup-oddstack`](./skills/setup-oddstack/SKILL.md). it detects the models this harness can select and edits [`skills/odd-mode/models.txt`](./skills/odd-mode/models.txt), the map every skill reads. cursor, claude code, codex, t3 code, and grok bot all see it, because the file lives inside the odd-mode skill and each skill links to it as a sibling. [`harness.md`](./skills/odd-mode/harness.md) beside it says how each harness spawns an entry.
 
 when a default changes, a map edited before the change still pins the old default. delete those role lines, then run `/setup-oddstack` again. a rerun keeps any role whose model differs from the default by family, list, or alias.
 

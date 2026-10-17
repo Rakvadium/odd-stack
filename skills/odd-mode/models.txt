@@ -1,74 +1,26 @@
-# oddstack model map
-# One role per line. The form is `<role>: <slug>` or `<role>: <slug>, <slug>`.
-# `inherit-parent` or `auto` means omit the Task `model` field. The role runs on the parent chat model.
-# An alias entry in a panel list still counts toward its fan-out.
-# A missing role line falls back to the default named in the skill that spawns it.
+# oddstack model map. /setup-oddstack writes this file. harness.md beside it says how to spawn an entry.
 #
-# Find this file
-# It lives in the odd-mode skill as models.txt.
-# From a sibling skill, read ../odd-mode/models.txt.
-# That relative path works in the repo and when each skill folder is linked on its own into
-# ~/.agents/skills, ~/.claude/skills, ~/.cursor/skills, ~/.codex/skills, or Grok Bot's skill library.
-# odd-mode is installed beside the other skills, so the path resolves through the symlink or junction.
-# A path up to the repo root, such as ../../models.txt, fails once the skill folder is linked by itself. `../` is then the skills directory, not the repo.
-# If the relative path misses, open the odd-mode skill the same way you opened the current skill and read models.txt there.
+# <role>: <entry> | <entry> ...
+# <entry> is `<provider> <model> <option>=<value> ...`, or `inherit` for the parent chat model.
+# Provider, model, and option ids are T3 Code's, as listed by orchestrator_capabilities.
+# A panel role spawns one child per entry. A missing role line is an error: stop and report it.
 #
-# Optional per-machine override
-# If ~/.cursor/rules/oddstack-models.mdc exists, a role line there replaces the same role line here.
-# Roles absent from that file keep the line here.
-# /setup-oddstack writes this file. It does not write the Cursor rule.
-# The rule is only a local override for a machine that still has one.
-#
-# Providers
-# The slug prefix is the provider.
-# grok-* lives on cursor. Harnesses: Cursor, a T3 Code thread on the Cursor provider, Grok Bot.
-# claude-* lives on claude. Harnesses: Claude Code, a T3 Code thread on the Claude provider.
-# Design and judgment go to Claude Opus. Those seats are every claude-* entry:
-# judgment and prose, hardest tasks, how explainer, why synthesizer,
-# reflect judgment / divergent / synthesizer, and the claude-* entry of
-# arena runners, arena cross-judge pool, architect runners, and interrogate reviewers.
-#
-# This fork's accounts
-# Cursor does not include third-party models, so a claude-* slug is not selectable there.
-# Claude Code and Codex cannot select grok-*.
-# If the tool you are in can select the slug anyway, use it.
-#
-# Harness
-# In T3 Code with delegate_task (often mcp__t3-code__delegate_task), spawn every role on its slug's provider through delegate_task.
-#   Do this even when this thread could select the slug natively.
-#   grok-* goes to providerInstanceId cursor, never to T3's native grok provider. claude-* goes to claudeAgent.
-#   If that route cannot start, stop and report. Do not fall back to Gemini, Codex, or native grok unless the operator says so.
-#   Split the slug into model and options, as in grok-4.7-high-fast → {providerInstanceId: "cursor", model: "grok-4.7", options: {reasoning_effort: "high", fastMode: true}}.
-#   Confirm provider ids, models, and option ids against orchestrator_capabilities. Don't trust the example.
-# Elsewhere, use the slug when this harness can select it.
-# When it cannot, and this harness has no route to the slug's provider:
-# - A grok-* role in Claude Code, Codex, or any harness with no route to Cursor:
-#   omit model, use the session model, and say so in one line.
-# - A claude-* role in Cursor, Codex, Grok Bot, or any harness with no route to Claude:
-#   leave that seat unspawned. Flag that it belongs in Claude Code or a T3 Code thread on any provider.
-#   Running it on Grok, or on the session model when that model is not Claude Opus, is the wrong outcome.
-#   A panel still spawns the seats this harness can select.
-# - `inherit-parent` and `auto` ignore provider. Omit model.
-# - When this harness should be able to select the family and the tool rejects the exact slug,
-#   use the closest valid slug of the same family (claude-* or grok-*) and say so.
-#   A rejection is not a reason to cross families.
-#
-# budget: medium (high)
+# budget: medium
 
-feature, refactoring: grok-4.7-high-fast
-bug-fix: grok-4.7-high-fast
-perf-issue: grok-4.7-high-fast
-hillclimb: grok-4.7-high-fast
-judgment and prose: claude-opus-5-5-high
-hardest tasks: claude-opus-5-5-high
-how explorer: grok-4.7-high-fast
-how explainer: claude-opus-5-5-high
-why investigators: grok-4.7-high-fast
-why synthesizer: claude-opus-5-5-high
-reflect tooling: grok-4.7-high-fast
-reflect judgment, divergent, synthesizer: claude-opus-5-5-high
-arena runners: claude-opus-5-5-high, grok-4.7-high-fast
-arena cross-judge pool: claude-opus-5-5-high, grok-4.7-high-fast
-swarm workers: grok-4.7-high-fast
-architect runners: claude-opus-5-5-high, grok-4.7-high-fast
-interrogate reviewers: claude-opus-5-5-high, grok-4.7-high-fast
+feature, refactoring: cursor grok-4.7 reasoning_effort=high fastMode=true
+bug-fix: cursor grok-4.7 reasoning_effort=high fastMode=true
+perf-issue: cursor grok-4.7 reasoning_effort=high fastMode=true
+hillclimb: cursor grok-4.7 reasoning_effort=high fastMode=true
+judgment and prose: claudeAgent claude-opus-5-5 effort=high
+hardest tasks: claudeAgent claude-opus-5-5 effort=high
+how explorer: cursor grok-4.7 reasoning_effort=high fastMode=true
+how explainer: claudeAgent claude-opus-5-5 effort=high
+why investigators: cursor grok-4.7 reasoning_effort=high fastMode=true
+why synthesizer: claudeAgent claude-opus-5-5 effort=high
+reflect tooling: cursor grok-4.7 reasoning_effort=high fastMode=true
+reflect judgment, divergent, synthesizer: claudeAgent claude-opus-5-5 effort=high
+arena runners: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true
+arena cross-judge pool: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true
+swarm workers: cursor grok-4.7 reasoning_effort=high fastMode=true
+architect runners: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true
+interrogate reviewers: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true

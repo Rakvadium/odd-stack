@@ -10,7 +10,7 @@ Investigate the motivation and intent behind code.
 
 Companion to the `how` skill. `how` answers what the code does and how it works. `why` answers what forces led to its shape.
 
-Each spawn below names a role line in [`../odd-mode/models.txt`](../odd-mode/models.txt) and a default. Read that file and follow its `# harness` section. The relative path is the odd-mode skill's `models.txt`, and it resolves through a per-skill symlink. If it misses, open the odd-mode skill and read `models.txt` there. A same-named line in `~/.cursor/rules/oddstack-models.mdc` overrides the map when that file exists. Leave `model` unset when the value is `auto` or `inherit-parent`. Never run a `claude-*` seat on Grok. When this harness should be able to select the family and the tool rejects the exact slug, use the closest valid slug of the same family and say so.
+Each spawn below names a role line in [`../odd-mode/models.txt`](../odd-mode/models.txt). Spawn each entry per the Models section of [`../odd-mode/harness.md`](../odd-mode/harness.md).
 
 ## Operating Posture
 
@@ -81,7 +81,7 @@ Launch all matching investigators in a single message so they run concurrently. 
 
 Subagent config (each):
 - `subagent_type`: `generalPurpose`
-- `model`: the `why investigators` line, default `grok-4.7-high-fast`
+- `model`: the `why investigators` line
 - `readonly`: `false` (agent mode). **Do not use readonly/Ask mode.** It strips MCP access, which disables MCP-backed investigators entirely. Investigators still shouldn't write anything.
 
 Each investigator gets:
@@ -125,7 +125,7 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 Spawn one synthesizer subagent:
 
 - `subagent_type`: `generalPurpose`
-- `model`: the `why synthesizer` line, default `claude-opus-5-5-high`
+- `model`: the `why synthesizer` line
 - `readonly`: `false` (agent mode). The synthesizer's quality check spot-verifies citations, which can require MCP access. Readonly/Ask mode strips MCPs and defeats that.
 
 The synthesizer gets:
