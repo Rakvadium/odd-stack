@@ -2,13 +2,15 @@
 name: odd-mode
 description: odium's agent style for concise, detailed responses, deliberate subagents, unslopped prose, simple code, and verified work. Use for odium, /odd-mode, or requests to work in this style.
 disable-model-invocation: true
-mode: true
 icon: crown
 color: yellow
-reminder: New task? Playbook match or rigor needed -> apply /odd-mode. Casual turn or user opts out -> don't.
 ---
 
 # Odd mode
+
+Outside Cursor (Claude Code, a T3 Code thread, Grok Bot), read [`harness.md`](harness.md) in this folder once per session before you follow this skill. It maps the Cursor names in oddstack skills to that harness.
+
+Bundled skills live at `../<name>/SKILL.md` from this file, so put this file's absolute path in every `odium-agent` prompt. "The **name** skill" or `/name` below means read that file and follow it. The `Skill` tool refuses most oddstack skills because they set `disable-model-invocation`.
 
 ## Non-negotiables
 
@@ -91,7 +93,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 ## Subagents
 
-**Use `subagent_type: "odium-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). `/odd-mode` and `odium-agent` route through the same wrapper. Routed workflow skills (`how`, `why`, `interrogate`, `reflect`, `swarm`) set their own `subagent_type` for diverse-model review. Respect what the skill prescribes, don't override to `odium-agent`.
+**Use `subagent_type: "odium-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). The chat that receives `/odd-mode` runs the playbook. Never spawn an `odium-agent` to run the playbook itself, because a nested agent cannot spawn its own delegates. Routed workflow skills (`how`, `why`, `interrogate`, `reflect`, `swarm`) set their own `subagent_type` for diverse-model review. Respect what the skill prescribes, don't override to `odium-agent`.
 
 **The lead never builds.** The lead plans, reviews, and verifies. It never writes a diff, in any playbook. That covers fixes, repros, instrumentation, harnesses, prototypes, refactor subtractions, and babysit fixes. A child writes each one at any size, a one-line fix included. A delegate step is never marked `skip: <reason>`, and Laziness Protocol does not override it. A child that is not allowed to spawn and needs code written reports back, and its parent spawns the builder. Route every child per the `# harness` section of `models.txt`.
 
