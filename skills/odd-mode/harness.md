@@ -1,6 +1,6 @@
 # oddstack outside Cursor
 
-oddstack skills use Cursor names. In Claude Code, a T3 Code thread, or Grok Bot, read this file once per session, then map each Cursor name with the tables below. `<skills>` means the folder that holds `odd-mode/`, which is this file's grandparent. If a Cursor field has no row, drop it and say so. Never pass a field or value the tool schema rejects.
+oddstack skills use Cursor names. In Claude Code or a T3 Code thread, read this file once per session, then map each Cursor name with the tables below. `<skills>` means the folder that holds `odd-mode/`, which is this file's grandparent. If a Cursor field has no row, drop it and say so. Never pass a field or value the tool schema rejects.
 
 ## Skills
 
@@ -13,8 +13,8 @@ oddstack skills use Cursor names. In Claude Code, a T3 Code thread, or Grok Bot,
 
 | Cursor | Here |
 | --- | --- |
-| `Task` | `Agent` in Claude Code. In a T3 Code thread, `delegate_task` for every role `models.txt` routes through T3, and `Agent` only for a same-provider helper. |
-| `AskQuestion` | `AskUserQuestion`. When it is absent (`-p` mode, a thread started by Grok Bot), ask in plain text. |
+| `Task` | `Agent` in Claude Code. `delegate_task` in a T3 Code thread, for every role, per the `# Harness` section of `models.txt`. A `cursor` child also needs the done marker in odd-mode's Subagents section. |
+| `AskQuestion` | `AskUserQuestion`. In `-p` mode it is absent, so ask in plain text. |
 | Open a todolist | `TodoWrite` if the session offers it. Otherwise `.odd-todo.md`, per odd-mode's Playbooks section. |
 | `Grep`, `Glob` | `Bash` with `rg` when the session has neither. |
 
@@ -23,9 +23,11 @@ oddstack skills use Cursor names. In Claude Code, a T3 Code thread, or Grok Bot,
 | Cursor | Here |
 | --- | --- |
 | `subagent_type: generalPurpose` | `subagent_type: "general-purpose"` |
-| `odium-agent`, `comment-sicko` | The same names, when `~/.claude/agents/` links them. Otherwise `general-purpose`, with a brief that starts "Read `<absolute path>/agents/<name>.md` and follow it." For `delegate_task`, put that line at the top of the task text. |
+| `odium-agent`, `comment-sicko` | The same names in Claude Code, when `~/.claude/agents/<name>.md` exists. For `delegate_task`, or when that file is missing, start the brief with "Read `~/.claude/agents/<name>.md` and follow it." If it is missing, use `general-purpose` and say so. |
+| `readonly: false` | `general-purpose`. It keeps the session's MCP servers. |
 | `readonly: true` | `subagent_type: "Explore"`. It keeps `Bash`, so the brief also says "do not edit files", and you check `git status` afterward. |
 | `environment: "cloud"` | `isolation: "worktree"`. Name the branch or commit the worker checks out. |
+| `cloud_base_branch: <b>` | Tell the worker to check out `<b>` first. |
 | `environment: "local"` | Omit. |
 | `run_in_background: true` | Omit for `Agent`. It runs in the background by default and notifies you. For `delegate_task`, use `mode: "async"` and keep the `taskId`. |
 | `resume` | Spawn a fresh agent and paste the earlier result into its brief. |
@@ -37,8 +39,8 @@ Read the role's slug from `models.txt`, then route it.
 
 | Slug | Claude Code | T3 Code thread |
 | --- | --- | --- |
-| `claude-<family>-<version>-<effort>`, such as `claude-opus-5-5-high` | `Agent` with `model: "opus"` and `effort: "high"`. `model` takes only `opus`, `sonnet`, `haiku`, `fable`. | `delegate_task` per the `# harness` section of `models.txt`. |
-| `grok-*` | No route. Follow the `# harness` section of `models.txt`. | `delegate_task` per the `# harness` section of `models.txt`. |
+| `claude-<family>-<version>-<effort>`, such as `claude-opus-5-5-high` | `Agent` with `model: "opus"` and `effort: "high"`. `model` takes only `opus`, `sonnet`, `haiku`, `fable`, so this is the closest same-family slug that `models.txt` allows. | `delegate_task` per the `# Harness` section of `models.txt`. |
+| `grok-*` | No route. Follow the `# Harness` section of `models.txt`. | `delegate_task` per the `# Harness` section of `models.txt`. |
 | `auto`, `inherit-parent` | Omit `model`. | Omit `model`. |
 
 ## Paths
