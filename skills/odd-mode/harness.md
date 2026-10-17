@@ -48,6 +48,7 @@ Every skill picks models the same way. Read the role's line in `models.txt` besi
 3. A `cursor` entry with no route here runs on the session model. Omit `model` and say so in one line. The cross-provider review seat is the exception: odd-mode's "Review runs on the other provider" rule decides it.
 4. If the tool rejects the exact model or option, use the closest valid one from the same provider and family, and say so. A rejection never moves an entry to the other provider.
 5. If the role has no line in `models.txt`, stop and report it. Do not guess a model.
+6. Leave any option the entry does not name at its default. Give each `delegate_task` a `title` naming the role, and a distinct `clientRequestId` per spawn.
 
 ## Paths
 
