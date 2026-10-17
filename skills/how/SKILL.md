@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
-Each spawn below names a role line in [`../odd-mode/models.txt`](../odd-mode/models.txt) and a default. Read that file and follow its `# harness` section. The relative path is the odd-mode skill's `models.txt`, and it resolves through a per-skill symlink. If it misses, open the odd-mode skill and read `models.txt` there. A same-named line in `~/.cursor/rules/oddstack-models.mdc` overrides the map when that file exists. Leave `model` unset when the value is `auto` or `inherit-parent`. Never run a `claude-*` seat on Grok. When this harness should be able to select the family and the tool rejects the exact slug, use the closest valid slug of the same family and say so.
+Each spawn below names a role line in [`../odd-mode/models.txt`](../odd-mode/models.txt). Spawn each entry per the Models section of [`../odd-mode/harness.md`](../odd-mode/harness.md).
 
 ## Step 1. Assess Complexity
 
@@ -24,7 +24,7 @@ When in doubt, take the simple path.
 Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers in a single message:
 
 - `subagent_type`: `generalPurpose`
-- `model`: the `how explorer` line, default `grok-4.7-high-fast`
+- `model`: the `how explorer` line
 - `readonly`: `true`
 
 Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
@@ -34,7 +34,7 @@ Each explorer gets the prompt in `references/explorer-prompt.md` with its angle 
 Spawn one Task subagent that explores and explains in one pass:
 
 - `subagent_type`: `generalPurpose`
-- `model`: the `how explainer` line, default `claude-opus-5-5-high`
+- `model`: the `how explainer` line
 - `readonly`: `true`
 
 Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
@@ -44,7 +44,7 @@ Build its prompt from `references/explainer-prompt.md` without the explorer-find
 Once all explorers have returned, spawn one Task subagent to synthesize their findings into one explanation:
 
 - `subagent_type`: `generalPurpose`
-- `model`: the `how explainer` line, default `claude-opus-5-5-high`
+- `model`: the `how explainer` line
 - `readonly`: `true`
 
 Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.

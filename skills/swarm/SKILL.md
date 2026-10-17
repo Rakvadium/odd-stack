@@ -22,12 +22,12 @@ Open a todolist with one entry per phase before launching anything.
 1. State the done predicate and the artifact or report the swarm must return.
 2. Choose the shape. Partition into slices, race N workers on identical briefs, or mix both. For a race or mixed shape, declare `first pass`, `rank all`, or `best-of` before spawning.
 3. Set N from the user or derive it from the shape. N is total workers, not the cloud concurrency limit.
-4. Pick the worker model from the `swarm workers` line in [`../odd-mode/models.txt`](../odd-mode/models.txt). Read that file and follow its `# harness` section. The relative path is the odd-mode skill's `models.txt`, and it resolves through a per-skill symlink. If it misses, open the odd-mode skill and read `models.txt` there. If the line is missing, use `grok-4.7-high-fast`. A same-named line in `~/.cursor/rules/oddstack-models.mdc` overrides the map when that file exists. For `auto` or `inherit-parent`, omit `model` so the workers run on the parent model. When this harness should be able to select the family and the tool rejects the exact slug, use the closest valid slug of the same family and say so. For a model race, name each arm's model up front. The same harness rule applies to each arm. An Opus arm is never filled with Grok.
+4. Pick the worker model from the `swarm workers` line in [`../odd-mode/models.txt`](../odd-mode/models.txt). Spawn each entry per the Models section of [`../odd-mode/harness.md`](../odd-mode/harness.md). For a model race, name each arm's model up front and route each arm the same way.
 5. Give each worker its own writable output when it writes. When workers verify or measure commits, each brief names the exact SHAs. A measurement brief also names the method (sample count, what one sample is, order). The worker records both in its result.
 
 ## Phase B: Fan out
 
-Spawn all N workers in one message with `subagent_type: generalPurpose`, `environment: "cloud"`, `run_in_background: true`, and the step 4 model, left unset for `auto` or `inherit-parent`. Use `environment: "local"` only when the worker needs access to something on the user's computer.
+Spawn all N workers in one message with `subagent_type: generalPurpose`, `environment: "cloud"`, `run_in_background: true`, and the step 4 model. Use `environment: "local"` only when the worker needs access to something on the user's computer.
 
 When a worker must start from a non-default pushed branch, pass `cloud_base_branch`.
 

@@ -30,19 +30,19 @@ For each candidate, read the first JSONL line and check that `message.content[0]
 
 One message, three `Task` calls, `subagent_type: generalPurpose`, with `model` set as below, agent mode (`readonly: false`). Reviewers need MCP access for context lookups (tickets, chat threads, observability traces referenced in the transcript). Readonly strips MCPs.
 
-Each reviewer and the synthesizer name a role line in [`../odd-mode/models.txt`](../odd-mode/models.txt) and a default. Read that file and follow its `# harness` section. The relative path is the odd-mode skill's `models.txt`, and it resolves through a per-skill symlink. If it misses, open the odd-mode skill and read `models.txt` there. A same-named line in `~/.cursor/rules/oddstack-models.mdc` overrides the map when that file exists. Leave `model` unset when the value is `auto` or `inherit-parent`. Never run a `claude-*` seat on Grok. When this harness should be able to select the family and the tool rejects the exact slug, use the closest valid slug of the same family and say so.
+Each reviewer and the synthesizer name a role line in [`../odd-mode/models.txt`](../odd-mode/models.txt). Spawn each entry per the Models section of [`../odd-mode/harness.md`](../odd-mode/harness.md).
 
-| Lens | Role line | Default `model` | Prompt template |
-|---|---|---|---|
-| Judgment | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-high` | `references/judgment-reviewer.md` |
-| Tooling | `reflect tooling` | `grok-4.7-high-fast` | `references/tooling-reviewer.md` |
-| Divergent | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-high` | `references/divergent-reviewer.md` |
+| Lens | Role line | Prompt template |
+|---|---|---|
+| Judgment | `reflect judgment, divergent, synthesizer` | `references/judgment-reviewer.md` |
+| Tooling | `reflect tooling` | `references/tooling-reviewer.md` |
+| Divergent | `reflect judgment, divergent, synthesizer` | `references/divergent-reviewer.md` |
 
 Pass each template verbatim, substituting the transcript path or digest where marked. Reviewers return findings in the `Task` response body.
 
 ### 3. Synthesize
 
-One `Task` call, `subagent_type: generalPurpose`, with `model` from the `reflect judgment, divergent, synthesizer` line (default `claude-opus-5-5-high`), agent mode (`readonly: false`). The synthesizer's quality check includes spot-verifying citations, which can require MCP access. Readonly strips MCPs. Use `references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns a structured Accepted / Rejected / Backlog list.
+One `Task` call, `subagent_type: generalPurpose`, with `model` from the `reflect judgment, divergent, synthesizer` line, agent mode (`readonly: false`). The synthesizer's quality check includes spot-verifying citations, which can require MCP access. Readonly strips MCPs. Use `references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns a structured Accepted / Rejected / Backlog list.
 
 ### 4. Structural enforcement check
 
