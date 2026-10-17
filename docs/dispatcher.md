@@ -26,7 +26,7 @@ Use the absolute path on the first line. A repo-relative path such as `skills/od
 ## Launching
 
 1. Run `t3_thread_list` with `titleContains` set to the planned title. If a thread for this request already exists, send to it or report it. Never launch a second one. `t3_thread_launch` has no idempotency key, so a retried launch makes a duplicate thread.
-2. Launch with `t3_thread_launch`. Pass `projectId` from `t3_project_list`, which a caller outside T3 must send, and the `modelSelection` above. Set `workspaceStrategy` to `{"type":"worktree","baseRef":"<branch the work starts from>","branch":"<new branch>","startFromOrigin":false}`, and put the prompt in `message`. Omitting `workspaceStrategy` runs the thread in the project's main checkout.
+2. Launch with `t3_thread_launch`. Pass `projectId` from `t3_project_list`, which a caller outside T3 must send, and the `modelSelection` above. Set `workspaceStrategy` to `{"type":"worktree","baseRef":"<branch the work starts from>","branch":"<new branch>","startFromOrigin":false}`, and put the prompt in `message`. Omitting `workspaceStrategy` runs the thread in the project's main checkout. Keep the project name plus the branch name under 46 characters. Cursor children in a longer worktree path hit a Windows path limit and replay their turns. This assumes T3's worktree location is set to `C:\wt`.
 3. Keep the returned `threadId`. Send approvals and answers only through `t3_thread_send` on that id.
 
 ## Monitoring
