@@ -24,3 +24,4 @@ arena cross-judge pool: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.
 swarm workers: cursor grok-4.7 reasoning_effort=high fastMode=true
 architect runners: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true
 interrogate reviewers: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true
+cross-provider reviewer: cursor grok-4.7 reasoning_effort=high fastMode=true

@@ -47,9 +47,9 @@ Write `../odd-mode/models.txt`, resolved from this skill's directory. Keep the c
 ```
 # budget: medium
 
-feature, refactoring: cursor grok-4.7 reasoning_effort=high fastMode=true
-bug-fix: cursor grok-4.7 reasoning_effort=high fastMode=true
-perf-issue: cursor grok-4.7 reasoning_effort=high fastMode=true
+feature, refactoring: claudeAgent claude-opus-5-5 effort=high
+bug-fix: claudeAgent claude-opus-5-5 effort=high
+perf-issue: claudeAgent claude-opus-5-5 effort=high
 hillclimb: cursor grok-4.7 reasoning_effort=high fastMode=true
 judgment and prose: claudeAgent claude-opus-5-5 effort=high
 hardest tasks: claudeAgent claude-opus-5-5 effort=high
@@ -64,6 +64,7 @@ arena cross-judge pool: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.
 swarm workers: cursor grok-4.7 reasoning_effort=high fastMode=true
 architect runners: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true
 interrogate reviewers: claudeAgent claude-opus-5-5 effort=high | cursor grok-4.7 reasoning_effort=high fastMode=true
+cross-provider reviewer: cursor grok-4.7 reasoning_effort=high fastMode=true
 ```
 
 Run `node scripts/check-models.mjs` from the repo root when the repo is available. It fails on a role a skill reads that has no line.
