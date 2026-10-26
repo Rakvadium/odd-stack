@@ -7,9 +7,9 @@
 #
 # budget: medium
 
-feature, refactoring: cursor grok-4.7 reasoning_effort=high fastMode=true
-bug-fix: cursor grok-4.7 reasoning_effort=high fastMode=true
-perf-issue: cursor grok-4.7 reasoning_effort=high fastMode=true
+feature, refactoring: claudeAgent claude-opus-5-5 effort=high
+bug-fix: claudeAgent claude-opus-5-5 effort=high
+perf-issue: claudeAgent claude-opus-5-5 effort=high
 hillclimb: cursor grok-4.7 reasoning_effort=high fastMode=true
 judgment and prose: claudeAgent claude-opus-5-5 effort=high
 hardest tasks: claudeAgent claude-opus-5-5 effort=high
